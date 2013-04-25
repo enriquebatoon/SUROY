@@ -1,0 +1,158 @@
+<head>
+	<style>
+		#createFree{
+			width: 750px;
+			height: 50px;
+		}
+		.grid-10{
+			margin-left: 10px;
+			margin-right: 10px;
+			padding-bottom: 15px;
+			padding-left: 90px;
+			position: relative;
+		}
+		.grid-11{
+			
+			position: relative;
+		}
+		#grid-12{
+			padding-top: 15px;
+			padding-bottom: 25px;
+			background-color: #373B4A;
+			width: 1366px;
+			margin: 0;
+		}
+		#a{
+			display: inline;
+			border: 1px solid black;
+			position: absolute;
+			left: 0px;
+		}
+		.signup{
+  		margin:0px;
+  		display:inline;
+  		background-color: gray;
+  		}
+		#f{
+
+			z-index:100;
+		    position:absolute;    
+		    color:white;
+		    font-size:15px;
+		    font-weight:bold;
+		    left:150px;
+		    top:350px;
+		}
+		#hots{
+			
+			height:300px;
+			width: 180px;
+			margin-top: 10px;
+			display: inline-block;
+			border-width:5px;	
+			box-shadow: 0 0 10px #9ecaed;
+		}
+		#hotname{
+			padding-left: 15px;
+			font-weight: bold;
+		}
+		#hotdesc{
+			padding-left: 15px;
+			font-size: 12px;
+		}
+		#af{
+			position: relative;
+		}
+		#toppic{
+		    height:405px;
+		    width:1366px;
+		    position:relative;
+		    padding-bottom: 0px;
+		}
+
+		#image{    
+		    position:absolute;
+		    left:0;
+		    top:0;
+		}
+		#text{
+		       
+		    color:#D4E9FF;
+		    font-size:35px;
+		    font-weight: bold;
+		    font-family: Tahoma;
+		    text-shadow: 2px 2px #4B535C;  
+		}
+		#caption{
+		   
+		    color:#75B5FA;
+		    font-size:23px;
+		    font-family: Tahoma;
+		    text-shadow: 1px 1px #4B535C;
+		}
+		#textcont{
+			z-index:100;
+		    position:absolute;
+		    left:60px;
+		    top:80px; 
+		    width: 750px;
+		}
+		#textcont2{
+			z-index:100;
+		    position:absolute;
+		    left:60px;
+		    top:230px; 
+		    width: 350px;
+		}
+	</style>
+</head>
+<div id="toppic">
+    <%= image_tag("starfish.png", :size => "1366x405", :id =>"image") %>
+    <div id = "textcont">
+    <p id="text">
+        Find Your Way Around The Beautiful Cebu and The Philippines
+    </p>
+	</div>
+	<div id = "textcont2">
+    <p id="caption">
+        <strong>SUROY</strong> offers an array of amazing and must-go hotspots around the country
+    </p>
+	</div>
+</div>
+<div class='grid-12' id ='grid-12'>
+<center>
+	<%= form_for @reg, :id =>"signup" do |f| %>
+	<% if @reg.errors.any? %>
+		<% @reg.errors.full_messages.each do |msg| %>
+			<%= msg %>
+			<br />
+		<% end %>
+	<% end %>
+	<%= f.text_field :email, :id => "user_email", :placeholder=>"Email Address", :size => "20"%>
+	<%= f.text_field :username, :id => "website_url", :placeholder=>"Username", :size => "20"%>
+	<%= f.password_field :password, :id => "user_password", :placeholder => "Password", :size => "20"%>
+	<%= f.password_field :password_confirmation, :id => "user_password", :placeholder => "Password Confirmation", :size => "20"%>
+	<%= f.submit "", :class => "btn btn-primary", :value=>"CREATE MY FREE ACCOUNT", :id => "createFree"%>
+	<% end %>
+</center>
+</div>
+<div class='container clearfix'>
+<div class='grid-10'>
+
+	<div class='grid-11'>
+
+		<h3> RECENT HOTSPOTS </H3>
+		<div>
+		<% @hot.each do |h| %>
+			<div id= "hots">
+				<br>
+				<center><%= image_tag h.photo.url(:small) %></center>
+				<p id="hotname"><%= link_to h.name, hotspot_path(h.id)%></p><br>
+				<p id="hotdesc"> <%= h.description %></p>
+			</div>
+		<%end%>
+		</div>
+	</div>
+</div>
+</div>
+<br><br>

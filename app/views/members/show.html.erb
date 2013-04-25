@@ -1,0 +1,193 @@
+<head>
+<style>
+  #data{
+    padding: 10px;
+    font-size: 15px;
+  }
+  #heading{
+    text-align: left;
+  }
+  .head{
+    color: #3491E3;
+  }
+  #prof{
+    display: inline-block;
+  }
+  #indivremark{
+    box-shadow: 0 0 5px #9ecaed;
+    padding-left: 10px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    vertical-align: middle;
+    font-size: 15px;
+
+  }
+  #actlog{
+
+    width:450px;
+    float: left;
+    position: relative;
+    display: inline;
+    left: 650px;
+    top: 230px;
+    font-size: 25px;
+
+  }
+  .page-header{
+
+    padding-left: 300px;
+    border-bottom: none;
+
+  }
+  #data{
+      color:blue;
+  }
+
+  #infobox{
+    position: absolute;
+    width: 850px;
+    left: 260px;
+    top: 30px;
+    height: 200px;
+    border-bottom: 1px solid #17b1a4;
+    box-shadow: 0px 4px 2px -2px #17b1a4;
+    
+  }
+  #info{
+    position: relative;
+    display: inline-block;
+    padding-left: 30px;
+    top: -30px;
+  }
+
+  #pic{
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    top: 5px;
+    left: 5px;
+    bottom: 15px;
+  }
+  #dataname{
+    font-size: 60px;
+    font-family: serif;
+  }
+
+  #datamail{
+    font-size: 20px;
+    font-family: sans-serif;
+  }
+
+
+  #hotspotside {
+    position: absolute;
+    top: 295px;
+    width:370px;
+    left: 260px;
+    clear: both;
+    font-size: 25px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+  }
+
+  #hotspotpic {
+    padding-top: 10px;
+    padding-left: 85px;
+  }
+
+  #hotspotcontent {
+    font-size: 20px;
+    padding-bottom: 10px;
+    padding-top: 20px;
+    border-bottom: 1px solid blue;
+    box-shadow: 0px 2px 2px -1px #17b1a4;
+    text-align: center;
+  }
+
+  #hotspotdetails {
+    font-size: 15px;
+    text-align: left;
+  }
+  #wala{
+    padding-bottom: 50px;
+  }
+
+</style>
+</head>
+
+<div class='dashboard-content'>
+<div class='page-header' id = 'prof'>
+  <div id = "infobox">
+    <div id="pic" >
+      <% if @mem.photo_file_name %>
+        <%= image_tag @mem.photo.url, :size => "200x150" %>
+      <% else %>
+        <%= image_tag("profpic.png", :size => "200x150") %>
+      <% end %> 
+      </div>
+      
+  <div id="info">  <div id="dataname"> <% if @mem.firstname && @mem.lastname %> <%= @mem.firstname %> <%= @mem.lastname %> <% else %> <%= @mem.username %> <% end%> </div>
+       <div id="datamail"><%= @mem.email %></div> 
+       <div id="datamail"><%= @mem.dob %></div><br>
+       <% if current_user == @mem %>
+  <%= link_to "Edit Profile", edit_member_path(@mem), :class => "btn" %>
+    <% end %>
+ </div>
+
+
+  </div></div></div>
+
+
+  <div id="actlog">
+  <h4><center>Recent Comments </center> </h4>
+
+  <br>
+  <% current_user.remarks.order("updated_at desc").limit(10).each do |h| %>
+  <div id="indivremark">
+     <% @hot = Hotspot.find(h.hotspot_id) %>
+     commented "<%= h.remark %>" on <%= link_to @hot.name, hotspot_path(h.hotspot_id) %>
+  </div>
+  <% end %>
+  </div>
+
+  <div id = "hotspotside">
+  <% if @mem.user_type == 0 %> 
+
+    <h4><center>Recent Hotspots</center></h4>
+      <div >
+          <% @hot.each do |h| %>
+          <div id = "hotspotpic">
+            <%= image_tag h.photo.url, :size => "200x150" %>
+          </div>
+          <div id = "hotspotcontent">
+            <%= link_to h.name, hotspot_path(h.id) %> <br>
+            <div id = "hotspotdetails" > <%=  h.description %> <br><br>
+            <em>Located at:<%=  h.location %></em>
+            </div>
+          </div>
+          <% end %>
+          
+        </div>
+        <%= paginate @hot %>
+           <br>
+      </div>
+
+  <%else %>
+     <h4><center>My Companies</center></h4>
+      <div>
+          <% @com.each do |h| %>
+            <div id = "hotspotcontent">
+              <%= link_to h.name, hotspot_path(h.id) %> <br>
+              <div id = "hotspotdetails" > <%=  h.description %> <br><br>
+              <em>Located at:<%=  h.address %></em>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <%= paginate @com %>
+         <br>
+      </div>
+  <% end %>
+  </div>
+</div>
+</div>

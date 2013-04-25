@@ -1,0 +1,29 @@
+<head>
+<style>
+  #data{
+    padding: 5px;
+    font-size: 15px;
+  }
+  #heading{
+    text-align: right;
+  }
+</style>
+</head>
+
+<div class='dashboard-content'>
+<div class='page-header'>
+  <center>
+    <table>
+      <tr><td><h3 id = "heading">Service :</h3></td> <td id="data"><%= @serve.name %></td></tr>
+      <tr><td><h3 id = "heading">Rate :</h3></td>  <td id="data"><%=  @serve.rate %></td></tr>
+      <tr><td><h3 id = "heading"></h3></td>  <td id="data"><%=  image_tag @serve.photo.url %></td></tr>
+    </table>
+    <% if current_user == @memb %>
+      <%= link_to "Edit Service", edit_service_path(@serve), :class => "btn btn-primary"%>
+    <% end %>
+  </center>
+</div>
+</div>
+<br><br>
+
+</center>

@@ -1,0 +1,66 @@
+<head>
+	<style>
+		h1{
+			font-size: 50px;
+		}
+	</style>
+</head>
+<div class='container'>
+<div class='grid-12 t-center'>
+<h1>SIGN UP
+	<% if @usertype == 1 %>
+	<br />as Company Owner 
+	<% end %>
+</h1>
+
+</h1>
+
+<h2>
+<small>It's 100% Free and won't take much time.</small>
+</h2>
+</div>
+</div>
+<div class='blockz body-container'>
+<div class='container'>
+<div class='grid-8 prefix-2 suffix-2'>
+<div class='page-curl shadow-bottom'>
+<div class='curl-head' style='display:none;'></div>
+<div class='curl-body'>
+<%= form_for @reg do |f|%>
+	<% if @reg.errors.any? %>
+		<% @reg.errors.full_messages.each do |msg| %>
+			<%= msg %>
+			<br />
+		<% end %>
+	<% end %>
+	<fieldset>
+
+<%= f.text_field :email, :id => "user_email", :placeholder=>"Email Address", :size => "67"%>
+</fieldset>
+<fieldset>
+<%= f.text_field :username, :id => "website_url", :placeholder=>"Username", :size => "67"%>
+</fieldset>
+<fieldset>
+<%= f.password_field :password, :id => "user_password", :placeholder => "Password", :size => "67"%>
+</fieldset>
+<fieldset>
+<%= f.password_field :password_confirmation, :id => "user_password", :placeholder => "Password Confirmation", :size => "67"%>
+</fieldset>
+<%= f.hidden_field :user_type, :value => @usertype %>
+<fieldset>
+<%= f.submit "", :class => "btn btn-secondary btn-block submit-btn", :value=>"CREATE MY FREE ACCOUNT" %>
+</fieldset>
+
+<fieldset>
+<p class='form-link'>
+Have an account? 
+<%= link_to "Login", new_session_path %>
+</p>
+</fieldset>
+<% end %>
+
+</div>
+</div>
+</div>
+</div>
+</div>

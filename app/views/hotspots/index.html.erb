@@ -1,0 +1,56 @@
+  <head>
+<style>
+  .table{
+    background-color: #0088cc;
+    padding: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    color: white;
+  }
+  td{
+    background-color: #ffffff;
+    padding: 5px;
+    color: black;
+    text-align: left;
+  }
+  tr{
+    padding: 5px;
+  }
+  #data{
+    padding: 5px;
+    font-size: 15px;
+  }
+  #heading{
+    text-align: right;
+  }
+  #bar{
+    border-bottom: 1px solid blue;
+  }
+  td .pictd{
+    padding-top: 10px;
+    width: 600px;
+  }
+  #last{
+    width: 200px;
+  }
+  #amazing{
+    font-family: Tahoma;
+  }
+
+</style>
+</head>
+
+<div class='dashboard-content'>
+<div class='page-header'>
+  <center>
+   
+ <H3><b> LIST OF HOTSPOTS </b></H3> <br/>
+ <div id = "hotspots"><%= render "hotspots" %></div>
+</center>
+  <%= paginate @hot %>
+<br/>
+<% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, :id => "flash#{name}" %>
+  <% end %>
+</div>
+</div>

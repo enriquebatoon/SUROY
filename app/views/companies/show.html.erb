@@ -1,0 +1,60 @@
+<head>
+<style>
+  #data{
+    padding: 5px;
+    font-size: 15px;
+  }
+  #heading{
+    text-align: right;
+  }
+</style>
+</head>
+
+<div class='dashboard-content'>
+<div class='page-header'>
+  
+    <table>
+<tr><td><h3 id = "heading">Company Name :</h3></td> <b><td id="data"><%= @com.name %><b></td></tr>
+<tr><td><h3 id = "heading">Description :</h3></td> <td id="data"><%= @com.description %></td></tr>
+<tr><td><h3 id = "heading">Address :</h3></td> <td id="data"><%= @com.address %></td></tr>
+<tr><td>&nbsp</td><td><%= link_to "Edit Company", edit_company_path(@com), :class => "btn btn-primary" %></td></tr>
+</table>
+<br>
+</div>
+</div>
+<center>
+<br>
+<H3><b> LIST OF HOTSPOTS </b></H3> <br>
+
+<table width="75%" align="center" border="1">
+  <tr>
+    <th><strong>Hotspot Name</strong></th>
+    <th><strong>Description</strong></th>
+    <th><strong>Location</strong></th>
+  </tr> 
+  <tr rowspan = 2>
+    <td colspan = 3>
+      &nbsp
+    </td>
+  </tr>
+
+ <% @com.hotspots.each do |f| %>
+  <tr>
+    <td><%= link_to f.name, hotspot_path(f) %></td>
+    <!-- ayoha ni <td > <%#= image_tag hotspot.image_url(:thumb).to_s %></td> -->
+    <td><%= f.description %></td>
+    <td><%= f.location %></td>
+     <td><%= link_to "Edit", edit_hotspot_path(f) %>
+    <td><%= link_to "Delete", f, :confirm => "Are you sure?",  :method => :delete %>     
+  </tr>
+<% end %>
+
+</table>
+
+
+<br><br>
+<%= link_to "Add Company Hotspots", new_hotspot_path({:id => @com.id}) %>
+<% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, :id => "flash#{name}" %>
+  <% end %>
+</center>

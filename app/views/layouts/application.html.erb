@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SUROY</title>
+  <%= stylesheet_link_tag "http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" %>
+<%= javascript_include_tag "http://code.jquery.com/jquery-1.9.1.js" %>
+<%= javascript_include_tag "http://code.jquery.com/ui/1.10.1/jquery-ui.js" %>
+<%= stylesheet_link_tag "/resources/demos/style.css" %>
+<%= javascript_include_tag "https://raw.github.com/rails/jquery-ujs/master/src/rails.js" %>
+  <%= stylesheet_link_tag "styles.css", :media => "all" %>
+  <%= stylesheet_link_tag "application.css", :media => "all" %>
+  <%= favicon_link_tag "/favicon.ico" %>
+  <%= csrf_meta_tags %>
+  <%= javascript_include_tag :defaults %>
+  <%= ajaxful_rating_style %>
+  <script>
+
+$(function () {
+  // Search form.
+  $('#companies_search input').keyup(function () {
+    $.get($('#companies_search').attr('action'),
+     $('#companies_search').serialize(), null, 'script');
+    return false;
+  });
+  $('#hotspot_search input').keyup(function () {
+    $.get($('#hotspot_search').attr('action'),
+     $('#hotspot_search').serialize(), null, 'script');
+    return false;
+  });
+});
+  </script>
+  <style>
+  	.container{
+  		padding: 20px;
+  	}
+    #container{
+      padding: 8px;
+    }
+    #container2{
+      padding: 20px;
+    }
+    #thin-footer{
+      position: fixed;
+      bottom: 0;
+      width: 1360px;
+    }
+  	.signup{
+  		margin:0;padding:0;display:inline;
+  		background-color: gray;
+  	}
+    .btn-primary{
+      background-color: #e15119;
+    }
+  </style>
+</head>
+<body>
+<% if !current_user %>
+  <%= render "layouts/headerMain" %>
+<% else %>
+  <%= render "layouts/header" %>
+<%end%>
+
+<%= yield %>
+
+<div class='thin-footer' id='thin-footer'>
+<div class='container' id='container'>
+<div class='grid-12'>
+<span>
+Copyright &copy; 2013 Click Labs Inc.
+</span>
+</div>
+</div>
+</div>
+
+</body>
+</html>

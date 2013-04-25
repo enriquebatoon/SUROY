@@ -1,0 +1,28 @@
+<table width="75%" align="center" border="1">
+  <tr>
+    <th><strong>Company Name</strong></th>
+    <th><strong>Description</strong></th>
+    <th><strong>Address</strong></th>
+    <th><strong>Status</strong></th>
+  </tr> 
+  <tr>
+    <td colspan = 6>
+
+    </td>
+  </tr>
+ 
+<% @com.each do |f| %>
+  <tr>
+    <td><%= link_to f.name, company_path(f) %></td>
+    <td><%= f.description %></td>
+    <td><%= f.address %></td>
+    <% if f.approved == 0 %>
+      <td>Unapproved</td>
+    <% else %>
+      <td>Approved</td>
+    <% end %>
+    <td><%= link_to "Edit", edit_company_path(f) %>
+    <td><%= link_to "Delete", f, :confirm => "Are you sure?",  :method => :delete%>
+  </tr>
+<% end %>
+</table>

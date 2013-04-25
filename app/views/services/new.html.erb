@@ -1,0 +1,49 @@
+<head>
+<style>
+  .table{
+    background-color: #0088cc;
+    padding: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    color: white;
+  }
+  td{
+    background-color: #ffffff;
+    padding: 5px;
+    color: black;
+    text-align: left;
+  }
+  #data{
+    padding: 5px;
+    font-size: 15px;
+  }
+  #heading{
+    text-align: right;
+  }
+</style>
+</head>
+
+<div class='dashboard-content'>
+<div class='page-header'>
+  <center>
+    <%= form_for @serve do |f| %>
+    <% if @serve.errors.any? %>
+      <% @serve.errors.full_messages.each do |msg| %>
+        <%= msg %>
+        <br />
+      <% end %>
+    <% end %>
+    <table>
+    <tr><td><h3 id = "heading">Services Name :</h3></td>
+      <td id="data"><%= f.text_field :name, :id => "", :placeholder=>"Service Name", :size => "20"%></td></tr>
+    <tr><td><h3 id = "heading">Service Rate :</h3></td>
+      <td><%= f.text_field :rate, :class => "table", :placeholder => "Service Rate", :size => "20" %></td></tr>
+      <tr><td><h3 id = "heading">Picture :</h3></td>
+        <td id="data"><%= f.file_field :photo %></td></tr>
+     <%= f.hidden_field :id, :value => params[:id] %>
+    </table>
+    <%= f.submit "", :class => "btn btn-primary", :value => "Add Service"%>
+</center>
+<% end %>
+</div>
+</div>

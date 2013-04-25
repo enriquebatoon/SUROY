@@ -1,0 +1,96 @@
+<head>
+	<%= stylesheet_link_tag "styles.css", :media => "all" %>
+	<style>
+  	.container{
+  		padding: 20px;
+  	}
+    #container{
+      padding: 8px;
+    }
+    #container2{
+      padding: 20px;
+    }
+    #thin-footer{
+      position: fixed;
+      bottom: 0;
+      width: 1360px;
+    }
+  	.signup{
+  		margin:0;padding:0;display:inline;
+  		background-color: gray;
+  	}
+    .btn-primary{
+      background-color: #e15119;
+    }
+    #company{
+      font-family: tahoma;
+      font-size: 12px;
+      font-weight: 450;
+      color: white;
+      border: none;
+      box-shadow: 0px 0px 0px 0px;
+      width: 180px;
+      background-color: #e15119;
+      box-shadow: 1px 3px 5px #454545;
+    }
+    #company:hover{
+      background-color: #4BCC1D;
+    }
+    #free{
+      font-family: Tahoma;
+      font-weight: 450;
+      color: white;
+      border: none;
+      box-shadow: 0px 0px 0px 0px;
+      background-color: #e15119;
+      box-shadow: 1px 3px 5px #454545;
+    }
+    #free:hover{
+      background-color: #4BCC1D;
+    }
+
+    #login{
+      font-weight: 450;
+      color: white;
+      background-color: #4BCC1D;
+      border: none;
+      box-shadow: 1px 3px 5px #454545;
+    }
+    #login:hover{
+      background-color: #e15119;
+    }
+    #search{
+      margin-top: 10px;
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<header class=''>
+<div class='container' id='container2'>
+<div class='grid-3'>
+<%= link_to image_tag("suroyver2logo.png", :class => "offerchat-logo", :alt => "Suroy", :title => "Suroy", :id => "search"), root_url %>
+</div>
+<div class='grid-9'>
+<nav class='right menu'>
+<ul>
+<li>
+  <%= form_tag hotspots_path, :method => 'get', :id => 'hotspot_search' do %>
+<%= hidden_field_tag :direction, params[:direction] %>
+  <%= hidden_field_tag :sort, params[:sort] %>
+<%= text_field_tag :search, params[:search], :placeholder => "Enter Hotspot Name", :size => '20', :id => "search" %>
+<% end %>
+</li>
+<li>
+	<%= link_to "Login", new_session_path,  :class => "btn", :id => "login"%>
+</li>
+<li>
+	<%= link_to "Sign up FOR FREE", new_member_path({:type => 0}),  :class => "btn btn-primary", :id => "free"%>
+</li>
+<li>
+  <%= link_to "Sign up as Company Owner", new_member_path({:type => 1}),  :class => "btn btn-primary", :id => "company"%>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</header>

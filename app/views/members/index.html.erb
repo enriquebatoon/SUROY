@@ -1,0 +1,74 @@
+<head>
+  <style>
+  #comp{
+    
+    width: 620px; 
+    border-radius:20px;
+    padding-left: 20px;
+    padding-top: 20px;
+    box-shadow: 0 0 10px #9ecaed;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    margin-top  : 10px;
+    display: inline-block;
+  }
+  #hotnames{
+    height: 95px; 
+    width: 150px; 
+    
+    padding-left: 20px;
+    box-shadow: 0 0 5px #9ecaed;
+    margin-left: 5px;
+    margin-bottom: 10px;
+  
+    display: inline-block;
+  }
+  #hotname{
+    font-size: 20px;
+    font-weight: bold;
+  }
+  #compname{
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+  }
+  #desc{
+    font-size: 15px;
+    text-decoration: none;
+    color: #191057;
+  }
+  </style>
+</head>
+
+<div class='dashboard-content'>
+<div class='page-header'>
+<h3>Welcome <%= current_user.username %>!</h3>
+<p>Find a hotspot near you!</p>
+<p>Update your profile <%= link_to "here", edit_member_path(current_user) %>!</p>
+</div>
+<center><h3><strong> HOTSPOTS </strong></h3></center>
+<center>
+<%= paginate @hot %>
+</center>
+<% @hot.each do |h| %>
+<% @com = Company.find(h.company_id)%>
+<% if @com.approved == 1%>
+<div id="comp">
+  <p id="compname"> <%= link_to h.name, hotspot_path(h.id) %></p>
+  <p id=""> <%= h.description %></p>
+  <% h.services.each do |s| %>
+    <div id="hotnames">
+    <p id="hotname"><%= link_to s.name, service_path(s.id) %></p>
+    <%= image_tag s.photo.url(:small), :height =>"30" %>
+    $<%= s.rate %>
+    </div>
+  <% end %>
+</div>
+<% end %>
+<% end %>
+</div>
+</div>
+</table>
+</div>
+<br><br><br>

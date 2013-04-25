@@ -1,0 +1,37 @@
+<table width="75%" align="center" border="1" id = "amazing">
+  <tr>
+    
+  <th> </th>
+  <th> </th>
+  </tr> 
+  <tr>
+    <td colspan = 5>
+
+    </td>
+  </tr>
+  <% counter = 0 %>
+<% @hot.each do |f| %>
+  <% @com = Company.find(f.company_id) %>
+
+  <% if @com.approved == 1 %>
+  <%counter = counter+1%>
+    <% if counter%2 == 0%>
+    <tr id="bar">
+      <td id = "last"><center><%= f.location %></center></td>
+      <td><%= f.description %></td>
+      <td><center><%= link_to f.name, hotspot_path(f) %></center></td>
+      <td class = "pictd"><%= image_tag f.photo.url, :size => "600x400>" %></td>
+    </tr >
+    <%else%>
+    <tr id="bar">
+      <td class ="pictd"><%= image_tag f.photo.url, :size => "600x400>" %></td>
+      <td><center><%= link_to f.name, hotspot_path(f) %></center></td>
+      <td><%= f.description %></td>
+      <td id = "last"><center><%= f.location %></center></td>
+    </tr></div>
+    <%end%>
+  <% end %>
+<% end %>
+<%= paginate @hot %>
+</table>
+<br><br>

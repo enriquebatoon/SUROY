@@ -1,0 +1,47 @@
+<head>
+<style>
+  .table{
+    background-color: #0088cc;
+    padding: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    color: white;
+  }
+  td{
+    background-color: #ffffff;
+    padding: 5px;
+    color: black;
+    text-align: left;
+  }
+  #data{
+    padding: 5px;
+    font-size: 15px;
+  }
+  #heading{
+    text-align: right;
+  }
+</style>
+</head>
+
+<div class='dashboard-content'>
+<div class='page-header'>
+  <center>
+   
+ <H3><b> LIST OF COMPANIES </b></H3> <br/>
+  <%= form_tag companies_path, :method => 'get', :id => "companies_search" do %>
+  <%= hidden_field_tag :direction, params[:direction] %>
+  <%= hidden_field_tag :sort, params[:sort] %>
+  <p>
+    <%= text_field_tag :search, params[:search], :placeholder => "Enter Company Name" %>
+  </p>
+  <div id = "companies"><%= render 'companies' %></div>
+  <% end %>
+<br/>
+<br/>
+<%= link_to "Add Company", new_company_path%>
+<% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, :id => "flash#{name}" %>
+  <% end %>
+</center>
+</div>
+</div>

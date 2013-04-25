@@ -1,0 +1,201 @@
+<head>
+<style>
+  #data{
+    padding: 5px;
+    font-size: 15px;
+  }
+  #data2{
+    padding-top: 5px;
+    font-size: 15px;
+  }
+  #heading{
+    text-align: right;
+  }
+  #service{
+    height: 1000px;
+    width: 650px;
+    float :left;
+    margin-left: 40px;
+    position: relative;
+    
+  }
+  #comment{
+    display: inline;
+    margin-left: 50px;
+    width: 650;  
+    vertical-align: middle; 
+  }
+
+  .rem{
+    font-weight: bold;
+    margin-left: 680px;
+    margin-right: 20%;
+    position:inherit;
+    background-color: #E6E1E3;
+    line-height: 20px;
+    box-shadow: 2px -1px 3px #474747;
+    vertical-align: middle;
+    margin-bottom: 5px;
+
+  }
+  #del{
+    float: right;
+    bottom: 20px;
+  }
+
+  #name{
+    margin-right: 200px;
+    margin-left: 140px;
+    margin-top: -130px;
+    font-size: 25px;
+    width: 100px;
+
+  }
+
+  #desc{
+    margin-left: 22%;
+  
+}
+  #opt{
+    margin-left: 22%;
+    width: 80px;
+    float:right;
+
+  }
+
+  #serve{
+    width:620px;
+    border-bottom: 1px solid blue;
+    box-shadow: 0px 2px 2px -1px #17b1a4;
+  }
+
+  .header{
+    font-size: 20px;
+  }
+  .header2{
+    font-size: 15px;
+  }
+  .rate{
+    text-decoration: underline;
+  }
+  .desc{
+    width: 300px;
+  }
+  #imagepic{
+    position:absolute;
+  }
+  #free{
+      font-family: Tahoma;
+      font-weight: 450;
+      color: white;
+      border: none;
+      box-shadow: 0px 0px 0px 0px;
+      background-color: #6685FF;
+      box-shadow: 1px 3px 5px #454545;
+    }
+    #free:hover{
+      background-color: #5F77D4;
+    }
+</style>
+</head>
+
+<div class='dashboard-content'>
+  <div class='page-header'>
+    <!-- ....................................HOTSPOT DETAILS.................................... -->
+    <div id="imagepic"> <%= image_tag @hot.photo.url, :size =>"410x260" %></div>
+    <center>
+      <table>
+        <tr><td><h3 id = "heading">Hotspot Name :</h3></td> <td id="data"><%= @hot.name %></td></tr>
+        <tr><td><h3 id = "heading">Description :</h3></td>  <td id="data" class="desc"><%=  @hot.description %></td></tr>
+        <tr><td><h3 id = "heading">Address :</h3></td>  <td id="data"><%=  @hot.location %></td></tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td></td>
+        <tr><td><h3 id = "heading">Average Rating :</h3></td> 
+          <td id="data">
+            <%= ratings_for @hot %>
+          </td>
+        </tr> 
+      </table>
+      <% if current_user == @memb %>
+        <%= link_to "Edit Hotspot", edit_hotspot_path(@hot), :class => "btn btn-primary"%>
+      <% end %>
+    </center>
+  </div>
+</div>
+<br>
+<div id="service">
+
+  <!-- ....................................SERVICES.................................... -->
+
+    <H3 class = "header"><strong> LIST OF SERVICES </strong></H3> <br>
+
+     <% @hot.services.each do |f| %>
+      <div id="serve">
+        <div id="image"><%= image_tag f.photo.url, :height => "120", :width =>"120" %></div>
+        <div id="name"> <%= link_to f.name, service_path(f) %></div>
+        <div id="desc">Rate : $<%= f.rate %></div>
+
+          <div id="opt">
+            <% if current_user == @memb %>
+              <%= link_to "Edit", edit_service_path(f) %>
+              <%= link_to "Delete", f, :confirm => "Are you sure?",  :method => :delete %>
+            <% end %>
+          </div>
+          </div><br><br><br><br><br>
+        
+    <% end %><br>
+    <% if current_user == @memb %>
+      <%= link_to "Add Hotspot Services", new_service_path({:id =>@hot.id}) %>
+    <% end %>
+  </center>
+</div>
+<!-- ....................................COMMENT.................................... -->
+<div id="comment">
+  <H3 class = "header"><strong> COMMENTS </strong></H3> <br>
+  <% @hot.remarks.each do |f| %>
+  <div class="rem">
+    <tr>
+      <% mem = Member.find(f.member_id) %>
+      <td style="vertical-align:middle">
+        <% if mem.firstname && mem.lastname %>
+          <%= link_to mem.firstname + ' ' + mem.lastname, member_path(mem) %> :
+        <% else %>
+          <%= link_to mem.username, member_path(mem) %> :
+        <% end %>
+      </td>
+      <% if current_user %>
+        <% if current_user.id == f.member_id%>
+          <div id="del">
+          <%= link_to "X", f, :confirm => "Are you sure?",  :method => :delete %>
+          </div>
+        <%end%>
+      <% end %>
+            <td style="vertical-align:middle">&nbsp;&nbsp;&nbsp;&nbsp;<%= f.remark %></td><br><br>
+    </tr>
+  </div>
+  <% end %>
+<!-- ....................................ADD COMMENT.................................... -->
+  <% if current_user %>
+  <div>
+    <%= form_for [Remark.new] do |f| %>
+      <% if @hot.errors.any? %>
+        <% @hot.errors.full_messages.each do |msg| %>
+        <%= msg %>
+      <% end %>
+    <% end %>
+
+    <table>
+      <tr>
+        <td id="data2"><%= f.text_area :remark, :id => "", :placeholder=>"Write a comment...", :size => "60"%></td>
+      </tr>
+    </table>
+    <br>
+
+    <%= f.hidden_field :hotspot_id, :value => @hot.id%>
+    <%= f.submit "", :class => "btn", :id => "free", :value => "Comment"%>
+      <%end%>
+  </div> 
+  <% end %>
+</div>
+</body>

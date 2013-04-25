@@ -1,0 +1,75 @@
+<head>
+  <%= stylesheet_link_tag "styles2.css", :media => "all" %>
+  <style>
+  .container2{
+    padding: 0px;
+  }
+  .container#container2{
+    padding: 0px;
+  }
+  .menu-list#header-menu{
+    padding: 0px;
+    position: absolute;
+    right: 0px;
+  }
+  li .logout a .header-menu-link{
+    padding: 0px;
+  }
+  .logo{
+    position: absolute;
+    left: 0px;
+  }
+  .image-menu-link{
+    padding-top: 10px;
+  }
+  #profpic{
+    display: inline;
+    width: 50px;
+  }
+  li{
+    padding: 0px;
+  }
+  .container2{
+    padding: 0px;
+  }
+  .search{
+  	padding-left: 280px;
+  	float: left;
+    padding-top: 2px;
+  }
+  </style>
+</head>
+
+<div class='dashboard'>
+<div class='dashboard-header'>
+<div class='container' id='container2'>
+<%= link_to image_tag("suroyver2logo.png", :class => "logo", :alt => "Suroy", :title => "Suroy"), members_path %>
+<div class = "search">
+<%= form_tag hotspots_path, :method => 'get', :id => 'hotspot_search' do %>
+<%= hidden_field_tag :direction, params[:direction] %>
+  <%= hidden_field_tag :sort, params[:sort] %>
+<%= text_field_tag :search, params[:search], :placeholder => "Enter Hotspot Name", :size => '50' %>
+<% end %>
+</div>
+<ul class='menu-list group' id='header-menu'>
+<li>
+<%= link_to "All Hotspots", hotspots_path, :class => "header-menu-link" %>
+</li>
+<li>
+  <% if current_user.user_type == 1 %>
+    <%= link_to "My Company", companies_path, :class => "header-menu-link" %>
+  <% end %>
+</li>
+<li id = 'profpic'>
+  <% if current_user.photo_file_name %>
+    <%= link_to image_tag(current_user.photo.url, :size => "30x25"), member_path(current_user), :class => "image-menu-link" %> 
+  <% else %>
+    <%= link_to image_tag("profpic.png", :size => "30x25"), member_path(current_user), :class => "image-menu-link" %>
+  <% end %>
+</li>
+<li><%= link_to current_user.username, member_path(current_user), :class => "header-menu-link" %></li>
+<li><%= link_to "Logout", logout_path, :class =>"header-menu-link"%></li>
+</ul>
+</div>
+</div>
+</div>

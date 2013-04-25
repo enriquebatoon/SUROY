@@ -1,0 +1,43 @@
+<head>
+	<style>
+		h1{
+			font-size: 50px;
+		}
+	</style>
+</head>
+<div class='container'>
+<div class='grid-12 t-center'>
+<h1>LOG IN</h1>
+</div>
+</div>
+<div class='blockz body-container'>
+<div class='container'>
+<div class='grid-8 prefix-2 suffix-2'>
+<div class='page-curl shadow-bottom'>
+<div class='curl-head' style='display:none;'></div>
+<div class='curl-body'>
+	<% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, :id => "flash#{name}" %>
+  <% end %>
+  	<%= form_tag sessions_path do%>
+	<fieldset>
+	<%= text_field_tag :username, params[:username],:id => "website_url", :placeholder=>"Username", :size => "67"%>
+	</fieldset>
+	<fieldset>
+	<%= password_field_tag :password, params[:password],:id => "user_password", :placeholder => "Password", :size => "67"%>
+	</fieldset>
+	<fieldset>
+	<%= submit_tag "", :class => "btn btn-secondary btn-block submit-btn", :value=>"LOG IN" %>
+	</fieldset>
+	<fieldset>
+	<p class='form-link'>
+	Don't have an account?
+	<%= link_to "Sign Up", new_member_path({:type => 0}) %>
+	</p>
+	</fieldset>
+	<% end %>
+</div>
+</div>
+</div>
+</div>
+</div>
