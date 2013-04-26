@@ -9,7 +9,7 @@ class CreateMemberCompanies < ActiveRecord::Migration
   	add_index :member_companies, :company_id
 
   	
-  end
+
 
   def down
   	add_column :members, :companies, :string
