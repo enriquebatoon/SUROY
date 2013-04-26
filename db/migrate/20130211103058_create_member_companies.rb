@@ -12,7 +12,7 @@ class CreateMemberCompanies < ActiveRecord::Migration
   end
 
   def down
-  	
-  	drop_table :member_companies
+  	add_column :members, :companies, :string
+
   end
 end
