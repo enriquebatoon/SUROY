@@ -8,11 +8,11 @@ class CreateMemberCompanies < ActiveRecord::Migration
   	add_index :member_companies, :member_id
   	add_index :member_companies, :company_id
 
-  	remove_column :members, :companies
+  	
   end
 
   def down
   	add_column :members, :companies, :string
-
+  	drop_table :member_companies
   end
 end
