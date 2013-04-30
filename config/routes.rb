@@ -1,12 +1,13 @@
 Suroy2::Application.routes.draw do
+  root :to => 'pages#index'
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config
-  root :to => 'pages#index'
+  
 
   get "pages/view_all"
   get "members/login"
-  get "logout" => "sessions#destroy", :as => "logout"
+  get "logout" => "sessions#destroy"  , :as => "logout"
 
   resources :pages
   resources :sessions
