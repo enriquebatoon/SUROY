@@ -177,14 +177,13 @@
       <div>
           <% @com.each do |h| %>
             <div id = "hotspotcontent">
-              <%= link_to h.name, hotspot_path(h.id) %> <br>
+              <%= link_to h.name, company_path(h.id) %> <br>
               <div id = "hotspotdetails" > <%=  h.description %> <br><br>
               <em>Located at:<%=  h.address %></em>
               </div>
             </div>
           <% end %>
         </div>
-        <%= paginate @com %>
          <br>
       </div>
   <% end %>

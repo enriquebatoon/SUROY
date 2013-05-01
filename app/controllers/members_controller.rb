@@ -2,7 +2,8 @@ class MembersController < ApplicationController
 	  def show
 		  @mem = Member.find(params[:id])
       @hot = Hotspot.search(params[:search]).page(params[:page]).per(3)
-      @com = Company.find_by_member_id(@mem)
+      #@com = Company.find_by_member_id(params[:id])
+      @com = current_user.companies
 	  end
 
 	  def new
