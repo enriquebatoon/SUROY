@@ -155,6 +155,7 @@
 
     <h4><center>Recent Hotspots</center></h4>
       <div >
+        <%= paginate @hot %>
           <% @hot.each do |h| %>
           <div id = "hotspotpic">
             <%= image_tag h.photo.url, :size => "200x150" %>
@@ -168,7 +169,7 @@
           <% end %>
           
         </div>
-        <%= paginate @hot %>
+        
            <br>
       </div>
 
